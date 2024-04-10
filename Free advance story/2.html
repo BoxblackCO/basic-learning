@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Popups</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .popup-container {
+    display: none;
+    position: fixed;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+  
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<script>
+  function showPopup(popupId, overlayId) {
+    document.getElementById(overlayId).style.display = "block";
+    document.getElementById(popupId).style.display = "block";
+  }
+
+  function closePopup(popupId, overlayId) {
+    document.getElementById(overlayId).style.display = "none";
+    document.getElementById(popupId).style.display = "none";
+  }
+
+  function togglePopup(popupId, overlayId) {
+    showPopup(popupId, overlayId);
+    setTimeout(() => closePopup(popupId, overlayId), 2000); // Close after 2 seconds
+  }
+
+  // Call togglePopup function for each popup
+  for (let i = 1; i <= 10; i++) {
+    const popupId = 'popup' + i;
+    const overlayId = 'overlay' + i;
+    const topPos = Math.floor(Math.random() * 80) + 10 + '%';
+    const leftPos = Math.floor(Math.random() * 80) + 10 + '%';
+    const delay = i * 500; // Add delay to avoid all popups showing simultaneously
+    setTimeout(() => togglePopup(popupId, overlayId), delay);
+    document.write(`<div class="overlay" id="${overlayId}"></div>`);
+    document.write(`<div class="popup-container" id="${popupId}" style="top: ${topPos}; left: ${leftPos};">`);
+    document.write(`<span class="close-btn" onclick="closePopup('${popupId}', '${overlayId}')">X</span>`);
+    document.write(`<h2>Popup ${i}</h2>`);
+    document.write(`<p>This is popup number ${i}.</p>`);
+    document.write(`</div>`);
+  }
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiple Popups</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .popup-container {
+    display: none;
+    position: fixed;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+  
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<script>
+  function showPopup(popupId, overlayId) {
+    document.getElementById(overlayId).style.display = "block";
+    document.getElementById(popupId).style.display = "block";
+  }
+
+  function closePopup(popupId, overlayId) {
+    document.getElementById(overlayId).style.display = "none";
+    document.getElementById(popupId).style.display = "none";
+  }
+
+  function togglePopup(popupId, overlayId) {
+    showPopup(popupId, overlayId);
+    setTimeout(() => closePopup(popupId, overlayId), 2000); // Close after 2 seconds
+  }
+
+  function showFinalPopup() {
+    document.getElementById('finalOverlay').style.display = "block";
+    document.getElementById('finalPopup').style.display = "block";
+  }
+
+  // Call togglePopup function for each popup
+  for (let i = 1; i <= 10; i++) {
+    const popupId = 'popup' + i;
+    const overlayId = 'overlay' + i;
+    const topPos = Math.floor(Math.random() * 80) + 10 + '%';
+    const leftPos = Math.floor(Math.random() * 80) + 10 + '%';
+    const delay = i * 500; // Add delay to avoid all popups showing simultaneously
+    setTimeout(() => togglePopup(popupId, overlayId), delay);
+    document.write(`<div class="overlay" id="${overlayId}"></div>`);
+    document.write(`<div class="popup-container" id="${popupId}" style="top: ${topPos}; left: ${leftPos};">`);
+    document.write(`<span class="close-btn" onclick="closePopup('${popupId}', '${overlayId}')">X</span>`);
+    document.write(`<h2>Popup ${i}</h2>`);
+    document.write(`<p>This is popup number ${i}.</p>`);
+    document.write(`</div>`);
+  }
+
+  // Call showFinalPopup after all popups have closed
+  setTimeout(showFinalPopup, 11000);
+</script>
+
+<div class="overlay" id="finalOverlay"></div>
+<div class="popup-container" id="finalPopup" style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 200px;">
+  <span class="close-btn" onclick="closePopup('finalPopup', 'finalOverlay')">X</span>
+  <h2>Congratulations</h2>
+  <p>You won a brand new Iphone</p>
+  <button onclick="openAnotherFile()">Click this to get your prize</button>
+</div>
+
+<script>
+  function openAnotherFile() {
+    // Redirect to another HTML file
+    window.location.href = 'login.html';
+  }
+</script>
+</body>
+</html>

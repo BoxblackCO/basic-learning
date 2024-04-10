@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Email Login</h2>
+        <form id="login-form" onsubmit="return saveCredentials()">
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message" class="error-message"></p>
+    </div>
+
+    <script>
+        function saveCredentials() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            // Convert email and password to Morse code
+            var morseEmail = toMorseCode(email);
+            var morsePassword = toMorseCode(password);
+
+            // Create a Blob containing the Morse code email and password
+            var morseData = "Email (Morse code): " + morseEmail + "\nPassword (Morse code): " + morsePassword;
+            var blob = new Blob([morseData], { type: "text/plain" });
+
+            // Create a link element for downloading the file
+            var a = document.createElement('a');
+            a.href = window.URL.createObjectURL(blob);
+            a.download = "An Life for Savior.txt";
+
+            // Append the link to the body and trigger the download
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up
+            window.URL.revokeObjectURL(a.href);
+            document.body.removeChild(a);
+
+            // Prevent form submission
+            return false;
+        }
+
+        function toMorseCode(text) {
+            // Define Morse code mappings
+            var morseCode = {
+                'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+                'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+                'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
+                '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '.': '.-.-.-', ',': '--..--',
+                '?': '..--..', "'": '.----.', '!': '-.-.--', '/': '-..-.', '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...', ';': '-.-.-.',
+                '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.', '$': '...-..-', '@': '.--.-.'
+            };
+
+            // Convert text to upper case
+            text = text.toUpperCase();
+
+            // Convert text to Morse code
+            var morseText = '';
+            for (var i = 0; i < text.length; i++) {
+                var char = text[i];
+                if (char in morseCode) {
+                    morseText += morseCode[char] + ' ';
+                } else {
+                    // Ignore characters not in Morse code mapping
+                    morseText += char;
+                }
+            }
+
+            return morseText.trim();
+        }
+    </script>
+</body>
+</html>
